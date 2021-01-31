@@ -35,14 +35,14 @@
                 <div class="col-md-4">
                     <div class="withdraw stile">
                         <h5>Withdraw</h5>
-                        <h2>$00</h2>
+                        <h2>$<span id="current-withdraw">00</span> </h2>
                     </div>
                    
                 </div>
                 <div class="col-md-4">
                     <div class="balance stile">
                         <h5>Balance</h5>
-                        <h2>$ <span id="current-balance" > 1500</span></h2>
+                        <h2>$ <span id="current-balance">1500</span></h2>
                     </div>
                   
                 </div>
@@ -59,8 +59,8 @@
                 <div class="col-md-6">
                     <div class="submit-area">
                         <h3>Withdraw</h3>
-                    <input class="form-control" type="text" placeholder="$ Amount you want to withdraw">
-                    <button class="btn btn-success" >Withdraw</button>
+                    <input id="withdrawAmount" class="form-control" type="text" placeholder="$ Amount you want to withdraw">
+                    <button id="addWithdraw" class="btn btn-success" >Withdraw</button>
                     </div>
                 </div>
             </div>
@@ -76,20 +76,17 @@
          const transactionArea=document.getElementById('transaction-area');
          transactionArea.style.display='block';
         });
-
+//deposit button event handlaer!
          const depositBtn=document.getElementById('deposit-button');
          depositBtn.addEventListener('click',function(){
-
-            
-            const depositAmount=document.getElementById('deposit-amount').value;
-            const depositNumber=parseFloat(depositAmount);
-
-
+    
+           const depositNumber=getInputNumber('deposit-amount');
 
            updateSpanText("current-deposit",depositNumber);
            updateSpanText("current-balance",depositNumber);
 
             document.getElementById('deposit-amount').value="";
+           
 
          });
 
@@ -99,10 +96,26 @@
             const totalBalance=depositNumber+ BalanceNumber;
 
             document.getElementById(id).innerText=totalBalance;
+         }
+//withdraw button event handler!
 
+         const withdrawBtn=document.getElementById('addWithdraw');
+         withdrawBtn.addEventListener('click',function(){
+
+            const withdrawNumber=getInputNumber('withdrawAmount');
+
+            updateSpanText('current-withdraw',withdrawNumber);
+            updateSpanText('current-balance',-1*withdrawNumber);
+
+            document.getElementById('withdrawAmount').value="";
+         });
+
+         function getInputNumber(id){
+            const amount=document.getElementById(id).value;
+            const amountNumber=parseFloat(amount);
+            return amountNumber;
          }
 
-       
 
     </script>
     
